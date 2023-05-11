@@ -1,0 +1,251 @@
+{
+  "__fbthrift": {"@generated": 0},
+  "thrift_module" : "module",
+  "enumerations" : {
+    "MyEnum" : {
+      "lineno" : 20,
+      "constants" : {
+        "MyValue1" : 0,
+        "MyValue2" : 1,
+        "DOMAIN" : 2
+      }
+    }
+  },
+  "structs" : {
+    "MyStructNestedAnnotation" : {
+      "lineno" : 26,
+      "is_exception" : false,
+      "is_union" : false,
+      "fields" : {
+        "name" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true
+        }
+      },
+      "annotation_last_lineno" : -1
+    },
+    "MyStruct" : {
+      "lineno" : 30,
+      "is_exception" : false,
+      "is_union" : false,
+      "annotations" : {
+        "android.generate_builder" : "1",
+        "cpp.internal.deprecated._data.method" : "1"
+      },
+      "fields" : {
+        "major" : {
+          "type_enum" : "I64",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "cpp.name" : "majorVer"
+          }
+        },
+        "package" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "java.swift.name" : "_package"
+          }
+        },
+        "annotation_with_quote" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "go.tag" : "tag:\"somevalue\""
+          }
+        },
+        "class_" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "java.swift.name" : "class_"
+          }
+        },
+        "annotation_with_trailing_comma" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "custom" : "test"
+          }
+        },
+        "empty_annotations" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true
+        }
+      },
+      "annotation_last_lineno" : 40
+    },
+    "SecretStruct" : {
+      "lineno" : 61,
+      "is_exception" : false,
+      "is_union" : false,
+      "fields" : {
+        "id" : {
+          "type_enum" : "I64",
+          "spec_args" : null,
+          "required" : true
+        },
+        "password" : {
+          "type_enum" : "STRING",
+          "spec_args" : null,
+          "required" : true,
+          "annotations" : {
+            "java.sensitive" : "1"
+          }
+        }
+      },
+      "annotation_last_lineno" : -1
+    }
+  },
+  "services" : {
+    "MyService" : {
+      "lineno" : 42,
+      "functions" : {
+        "MyService.ping" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : []
+        },
+        "MyService.getRandomData" : {
+          "return_type" : {
+            "type_enum" : "STRING",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : []
+        },
+        "MyService.hasDataById" : {
+          "return_type" : {
+            "type_enum" : "BOOL",
+            "spec_args" : null
+          },
+          "args" : [
+            {
+              "type_enum" : "I64",
+              "spec_args" : null
+            }
+          ],
+          "throws" : []
+        },
+        "MyService.getDataById" : {
+          "return_type" : {
+            "type_enum" : "STRING",
+            "spec_args" : null
+          },
+          "args" : [
+            {
+              "type_enum" : "I64",
+              "spec_args" : null
+            }
+          ],
+          "throws" : []
+        },
+        "MyService.putDataById" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [
+            {
+              "type_enum" : "I64",
+              "spec_args" : null
+            },
+            {
+              "type_enum" : "STRING",
+              "spec_args" : null
+            }
+          ],
+          "throws" : []
+        },
+        "MyService.lobDataById" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [
+            {
+              "type_enum" : "I64",
+              "spec_args" : null
+            },
+            {
+              "type_enum" : "STRING",
+              "spec_args" : null
+            }
+          ],
+          "throws" : []
+        },
+        "MyService.doNothing" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : [],
+          "annotations" : {
+            "cpp.name" : "cppDoNothing"
+          }
+        }
+      }
+    },
+    "MyServicePrioParent" : {
+      "lineno" : 52,
+      "annotations" : {
+        "priority" : "HIGH"
+      },
+      "functions" : {
+        "MyServicePrioParent.ping" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : [],
+          "annotations" : {
+            "priority" : "IMPORTANT"
+          }
+        },
+        "MyServicePrioParent.pong" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : [],
+          "annotations" : {
+            "priority" : "HIGH_IMPORTANT"
+          }
+        }
+      }
+    },
+    "MyServicePrioChild" : {
+      "extends" : {
+        "type_enum" : "SERVICE",
+        "spec_args" : "MyServicePrioParent"
+      },
+      "lineno" : 57,
+      "functions" : {
+        "MyServicePrioChild.pang" : {
+          "return_type" : {
+            "type_enum" : "VOID",
+            "spec_args" : null
+          },
+          "args" : [],
+          "throws" : [],
+          "annotations" : {
+            "priority" : "BEST_EFFORT"
+          }
+        }
+      }
+    }
+  }
+}

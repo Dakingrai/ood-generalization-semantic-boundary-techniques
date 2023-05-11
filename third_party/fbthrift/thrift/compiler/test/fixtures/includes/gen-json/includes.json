@@ -1,0 +1,52 @@
+{
+  "__fbthrift": {"@generated": 0},
+  "thrift_module" : "includes",
+  "constants" : {
+    "ExampleIncluded" : {
+      "lineno" : 27,
+      "value" : { "MyIntField" : 2, "MyTransitiveField" : { "a" : 2 } },
+      "type_enum" : "STRUCT",
+      "spec_args" : "Included"
+    },
+    "IncludedConstant" : {
+      "lineno" : 34,
+      "value" : 42,
+      "type_enum" : "I64",
+      "spec_args" : null
+    }
+  },
+  "typedefs" : {
+    "IncludedInt64" : {
+      "lineno" : 32,
+      "type_enum" : "I64",
+      "spec_args" : null
+    },
+    "TransitiveFoo" : {
+      "lineno" : 37,
+      "type_enum" : "STRUCT",
+      "spec_args" : "transitive.Foo"
+    }
+  },
+  "structs" : {
+    "Included" : {
+      "lineno" : 22,
+      "is_exception" : false,
+      "is_union" : false,
+      "fields" : {
+        "MyIntField" : {
+          "type_enum" : "I64",
+          "spec_args" : null,
+          "required" : true,
+          "default_value" : 0
+        },
+        "MyTransitiveField" : {
+          "type_enum" : "STRUCT",
+          "spec_args" : "transitive.Foo",
+          "required" : true,
+          "default_value" : { "a" : 2 }
+        }
+      },
+      "annotation_last_lineno" : -1
+    }
+  }
+}

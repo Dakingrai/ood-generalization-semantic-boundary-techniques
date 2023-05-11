@@ -1,0 +1,4 @@
+android src/module.thrift
+hs src/module.thrift
+mstch_swift src/module.thrift
+mstch_py3 src/module.thrift

@@ -1,0 +1,31 @@
+{
+  "__fbthrift": {"@generated": 0},
+  "thrift_module" : "module",
+  "structs" : {
+    "MyStruct" : {
+      "lineno" : 20,
+      "is_exception" : false,
+      "is_union" : false,
+      "fields" : {
+        "MyIncludedField" : {
+          "type_enum" : "STRUCT",
+          "spec_args" : "includes.Included",
+          "required" : true,
+          "default_value" : { "MyIntField" : 2, "MyTransitiveField" : { "a" : 2 } }
+        },
+        "MyOtherIncludedField" : {
+          "type_enum" : "STRUCT",
+          "spec_args" : "includes.Included",
+          "required" : true
+        },
+        "MyIncludedInt" : {
+          "type_enum" : "TYPEDEF",
+          "spec_args" : "includes.IncludedInt64",
+          "required" : true,
+          "default_value" : 42
+        }
+      },
+      "annotation_last_lineno" : -1
+    }
+  }
+}
