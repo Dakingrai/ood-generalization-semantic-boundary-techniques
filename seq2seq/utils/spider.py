@@ -13,130 +13,17 @@ import utils
 
 from .natsql2sql.preprocess.sq import SubQuestion
 from .natsql2sql.natsql_parser import create_sql_from_natSQL
+from token_preprocessing import TokenPreprocessor
+
+replace_tokens = [(' avg (', ' average ('), (' asc ', ' ascending '), (' desc ', ' descending ')]
+token_preprocessor = TokenPreprocessor(snake_case=True, camel_case=True, normalize_text=True, replace_tokens=replace_tokens, insert_space_when=['.'])
 
 def spider_get_input(question: str, serialized_schema: str, prefix: str)->str:
-	return prefix + question.strip() + " " + utils.preprocess(serialized_schema).strip()
+	return prefix + question.strip() + " " + token_preprocessor.preprocess(serialized_schema).strip()
 
 def spider_get_target(query: str, db_id: str, normalize_query = True, target_with_db_id=False) -> str:
-	# try:
-	# 	assert normalize(query).lower() == rejoin_refine_single(refine(normalize(query), replace=True), replace=True)
-	# except:
-	# 	print(normalize(query).lower(), rejoin_refine_single(refine(normalize(query), replace=True), replace=True))
-	query = copy.deepcopy(utils.preprocess(normalize(query), replace=True).strip())
+	query = copy.deepcopy(token_preprocessor.preprocess(normalize(query)).strip())
 	return query
-
-# ------------------------------------------------
-# ------------------------------------------------
-def difference(str1, str2):
-	result1 = ''
-	result2 = ''
-	maxlen=len(str2) if len(str1)<len(str2) else len(str1)
-	#loop through the characters
-	for i in range(maxlen):
-		#use a slice rather than index in case one string longer than other
-		letter1=str1[i:i+1]
-		letter2=str2[i:i+1]
-		#create string with differences
-		if letter1 != letter2:
-			result1+=letter1
-			result2+=letter2
-	return result1
-
-def camel_case_preprocess(s):
-    _underscorer1 = re.compile(r'(.)([A-Z][a-z]+)')
-    _underscorer2 = re.compile('([a-z0-9])([A-Z])')
-    subbed = _underscorer1.sub(r'\1\2', s)
-    return _underscorer2.sub(r'\1# \2', subbed).lower()
-
-def camel_case_postprocess(data):
-    data_split = data.split()
-    processed = ""
-    remove = False
-    for line in data_split:
-        if '#' in line:
-            processed += " "+ line.replace('#','')
-            remove = True
-        else:
-            if remove:
-                processed += line
-                remove = False
-            else:
-                processed += " "+ line
-    return processed
-
-# def refine(raw_data, replace = False):
-#     data = copy.deepcopy(raw_data)
-#     if replace == True:
-#         data = data.replace("asc (", "ascend (")
-#         data = data.replace("desc (", "descending (")
-#         data = data.replace("asc(", "ascend (")
-#         data = data.replace("desc(", "descending (")
-#         data = data.replace("avg(", "average (")
-#         data = data.replace("avg (", "average (")
-#     data_split = data.split()
-#     refined_word = " "
-#     for word in data_split:
-#         # if "struct_sep" in word:
-#         #    continue
-#         if "_" not in word and "." not in word:
-#             refined_word += " " + word
-#         else:   
-#             if "_" in word:
-#                 w = word.split("_")
-#                 rw1 = " " + " _ ".join(w)
-#                 if len(rw1.split(".")) == 1:
-#                     refined_word += rw1
-#                 else:
-#                     temp_refined_word = rw1.split(".")
-#                     refined_word +=" "+" . ".join(temp_refined_word)
-#             if "." in word and "_" not in word:
-#                 w = word.split(".")
-#                 refined_word +=" "+" . ".join(w)
-#     return refined_word.strip()
-
-# def rejoin_refine_single(raw_data, replace=True):
-# 	keywords = ('except_', 'intersect_', 'union_')
-# 	# camel_data = camel_case_postprocess(raw_data)
-# 	camel_data = raw_data
-# 	if replace == True:
-# 		camel_data = camel_data.replace("ascend (", "asc (")
-# 		camel_data = camel_data.replace("ascend(", "asc (")
-# 		camel_data = camel_data.replace("descending (", "desc (")
-# 		camel_data = camel_data.replace("descending(", "desc (")
-# 		camel_data = camel_data.replace("average(", "avg (")
-# 		camel_data = camel_data.replace("average (", "avg (")
-# 	data_split = camel_data.split()
-# 	refined_data = ""
-# 	remove = False
-# 	for i, word in enumerate(data_split):
-# 		if "_" not in word and "." not in word:
-# 			if remove:
-# 				refined_data += word
-# 				remove = False
-# 			else:
-# 				refined_data += " " + word
-# 		else:
-# 			refined_data += word
-# 			if data_split[i-1] + word not in keywords:
-# 				remove = True
-# 	return refined_data.strip()
-
-# def rejoin_refine(data):
-#     refined_data = []
-#     for d in data:
-#         refined_data.append(rejoin_refine_single(utils.refine(d)))
-#     return refined_data
-
-# def refine_metas(data):
-# 	r_data = []
-# 	for d in data:
-# 		d['query'] = d['query']
-# 		d['context'] = d['context']
-# 		d['label'] = rejoin_refine_single(d['label'])
-# 		r_data.append(d)
-# 	return r_data
-
-# ---------------------------------------------
 
 def spider_add_serialized_schema(ex: dict, data_training_args: DataTrainingArguments)->dict:
 	serialized_schema = serialize_schema(question = ex["question"], db_path=ex["db_path"], db_id = ex["db_id"], db_column_names = ex["db_column_names"], db_table_names = ex["db_table_names"], schema_serialization_type=data_training_args.schema_serialization_type, schema_serialization_randomized=data_training_args.schema_serialization_randomized, schema_serialization_with_db_id=data_training_args.schema_serialization_with_db_id, schema_serialization_with_db_content=data_training_args.schema_serialization_with_db_id, normalize_query=data_training_args.normalize_query)
@@ -188,19 +75,13 @@ class SpiderTrainer(Seq2SeqTrainer):
 
 	def _compute_metrics(self, eval_prediction: EvalPrediction)->dict:
 		raw_pred, label_ids, metas = eval_prediction
-		predictions = copy.deepcopy(utils.post_process_all(raw_pred))
-		# predictions = self.remove_special_token(predictions)
+		predictions = copy.deepcopy(token_preprocessor.postprocess_all(raw_pred))
 		if self.target_with_db_id:
 			predictions = [pred.split("|", 1)[-1].strip() for pred in predictions]
 		references = metas
-		# pred = self.insert_from_natsql(predictions)
-		final_pred = self.convert_to_sql(predictions)
+		pred = self.insert_from_natsql(predictions)
+		final_pred = self.convert_to_sql(pred)
 		return self.metric.compute(predictions = final_pred, references = references)
-	
-	# def construct_hyper_param(self):
-	# 	parser = argparse.ArgumentParser()
-	# 	args = parser.parse_args()
-	# 	return args
 
 	def convert_to_sql(self, data):
 		# args = self.construct_hyper_param()
@@ -231,89 +112,5 @@ class SpiderTrainer(Seq2SeqTrainer):
 				created_sqls.append("None")
 		return created_sqls
 
-
-	# def insert_from_natsql(self, data):
-	# 	for i, row in enumerate(data):
-	# 		data[i] = self.insert_from_natsql_single(row)
-	# 	return data
-
-
-	# def insert_from_natsql_single(self, raw_data):
-	# 	data_l = raw_data.split()
-	# 	# pdb.set_trace()
-	# 	index = -1
-
-	# 	for i,d in enumerate(data_l):
-	# 		if data_l[i].lower() == 'order' or data_l[i].lower()  == 'where' or data_l[i].lower()  == 'group':
-	# 			index = i
-	# 			break
-
-	# 	data_k = raw_data.split('.')
-	# 	if data_k[0].strip() != '':
-	# 		repl_table_name = data_k[0].split()[-1]
-	# 	else:
-	# 		repl_table_name = ''
-
-	# 	if ')' in repl_table_name:
-	# 		repl_table_name = repl_table_name.split(')')[-2]
-						
-	# 	if '(' in repl_table_name:
-	# 		repl_table_name = repl_table_name.split('(')[-1]
-
-	# 	if index !=-1:
-	# 		data_l.insert(index, 'from ' + repl_table_name)
-	# 		raw_data = ' '.join(data_l)
-
-	# 	else:
-	# 		repl = 'from '+ repl_table_name
-	# 		data_l.append(repl.strip())
-	# 		raw_data = ' '.join(data_l)
-
-	# 	return raw_data
-	
-	# def remove_special_token(self, natsql):
-	# 	clean_natsql = []
-	# 	for sql in natsql:
-	# 		sql = sql.replace('[struct_sep0]', '')
-	# 		sql = sql.replace('[struct_sep 0]', '')
-	# 		sql = sql.replace('[struct_sep0 ]', '')
-	# 		sql = sql.replace('[struct_sep1]', '')
-	# 		sql = sql.replace('[struct_sep1 ]', '')
-	# 		sql = sql.replace('[struct_sep 1]', '')
-	# 		sql = sql.replace('[struct_sep2]', '')
-	# 		sql = sql.replace('[struct_sep 2]', '')
-	# 		sql = sql.replace('[struct_sep2 ]', '')
-	# 		sql = sql.replace('[struct_sep3]', '')
-	# 		sql = sql.replace('[struct_sep3 ]', '')
-	# 		sql = sql.replace('[struct_sep 3]', '')
-	# 		sql = sql.replace('[struct_sep4]', '')
-	# 		sql = sql.replace('[struct_sep4 ]', '')
-	# 		sql = sql.replace('[struct_sep 4]', '')
-	# 		sql = sql.replace('[struct_sep5 ]', '')
-	# 		sql = sql.replace('[struct_sep5]', '')
-	# 		sql = sql.replace('[struct_sep 5]', '')
-
-	# 		sql = sql.replace('[/struct_sep0]', '')
-	# 		sql = sql.replace('[/struct_sep0 ]', '')
-	# 		sql = sql.replace('[/struct_sep 0]', '')
-	# 		sql = sql.replace('[/struct_sep1]', '')
-	# 		sql = sql.replace('[/struct_sep1 ]', '')
-	# 		sql = sql.replace('[/struct_sep 1]', '')
-	# 		sql = sql.replace('[/struct_sep2]', '')
-	# 		sql = sql.replace('[/struct_sep2 ]', '')
-	# 		sql = sql.replace('[/struct_sep 2]', '')
-	# 		sql = sql.replace('[/struct_sep3]', '')
-	# 		sql = sql.replace('[/struct_sep3 ]', '')
-	# 		sql = sql.replace('[/struct_sep 3]', '')
-	# 		sql = sql.replace('[/struct_sep4]', '')
-	# 		sql = sql.replace('[/struct_sep4 ]', '')
-	# 		sql = sql.replace('[/struct_sep 4]', '')
-	# 		sql = sql.replace('[/struct_sep5 ]', '')
-	# 		sql = sql.replace('[/struct_sep5]', '')
-	# 		sql = sql.replace('[/struct_sep 5]', '')
-	# 		sql = sql.replace('!=', ' !=')
-	# 		sql = re.sub(' +', ' ', sql).strip()
-	# 		clean_natsql.append(sql)
-	# 	return clean_natsql
 
 
