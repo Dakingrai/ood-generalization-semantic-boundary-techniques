@@ -1,7 +1,7 @@
 # ood-generalization-semantic-boundary-based-techniques
 
 ## Environment Setup
-After combination, install Python dependency via `pip install -r requirements.txt`.
+Install Python dependency via `pip install -r requirements.txt`.
 
 ## Usage
 ```
