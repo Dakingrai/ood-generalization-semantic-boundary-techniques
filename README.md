@@ -1,4 +1,4 @@
-# ood-generalization-semantic-boundary-based-techniques
+# Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques
 
 ## Environment Setup
 Install Python dependency via `pip install -r requirements.txt`.
