@@ -79,7 +79,7 @@ class SpiderTrainer(Seq2SeqTrainer):
 		if self.target_with_db_id:
 			predictions = [pred.split("|", 1)[-1].strip() for pred in predictions]
 		references = metas
-		pred = self.insert_from_natsql(predictions)
+		pred = utils.insert_from_natsql_all(predictions)
 		final_pred = self.convert_to_sql(pred)
 		return self.metric.compute(predictions = final_pred, references = references)
 
