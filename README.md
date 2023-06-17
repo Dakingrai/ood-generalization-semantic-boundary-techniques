@@ -17,6 +17,12 @@ pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --e
 pip install -r requirements.txt
 ```
 
+Now, clone the repository.
+```
+git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
+cd ood-generalization-semantic-boundary-techniques
+```
+
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
 Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put train.json, dev.json, tables.json, and database folder under ./data/ directory.
@@ -24,8 +30,6 @@ Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal
 Set the value of `"token_preprocessing"` to be `"true"` in config file. There are two config files under `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
 ```
-git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
-cd ood-generalization-semantic-boundary-techniques
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
 python main.py configs/train.json # for finetuning without deepspeed
 ```
@@ -37,8 +41,6 @@ Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal
 The value of `"token_preprocessing"` should be set to `"false"` for training `"T5-base+Comp"` and `"true"` for training `"T5-base+Tok+Comp"`. There are two config files under `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
 ```
-git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
-cd ood-generalization-semantic-boundary-techniques
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
 python main.py configs/train.json # for finetuning without deepspeed
 ```
