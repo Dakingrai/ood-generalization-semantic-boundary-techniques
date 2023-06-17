@@ -28,7 +28,7 @@ deepspeed main.py configs/train_deepspeed.json
 ### Step 1: Download the dataset
 Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put train.json, dev.json, tables.json, and database folder under ./data/ directory.
 ### Step 2: Configure the Config file
-The value of "token_preprocessing" should be set to "false" for training "T5-base+Comp" and "true" for training "T5-base+Tok+Comp". There are two config files under ./configs/ directory - train.json and train_deepspeed.json. To train without deepspeed, modify the "train.json" file, and for training with deepspeed, modify the "train_deepspeed.json" file.
+The value of `"token_preprocessing"` should be set to `"false"` for training `"T5-base+Comp"` and `"true"` for training `"T5-base+Tok+Comp"`. There are two config files under `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
