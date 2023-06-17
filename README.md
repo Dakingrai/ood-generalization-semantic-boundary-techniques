@@ -8,6 +8,7 @@ In this paper, we introduce two semantic-boundary-based techniques to improve co
 
 ## Setup
 This project is tested in python 3.8.6.
+
 To get started, set up the environment:
 ```
 python -m venv env 
@@ -41,4 +42,8 @@ cd ood-generalization-semantic-boundary-techniques
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
 python main.py configs/train.json # for finetuning without deepspeed
 ```
+
+## Acknowledgments
+We would like to thank all anonymous reviewers for their constructive comments. We also thank Yujian Gan and Xinyun Chen for their help in using the NatSQL and the Spider-SS datasets, as well as
+Pengcheng Yin for using the code base of Attn. Sup. This project was supported by resources provided by the Office of Research Computing at George Mason University (https://orc.gmu.edu) and funded in part by grants from the National Science Foundation (Awards Number 1625039 and 2018631).
  
