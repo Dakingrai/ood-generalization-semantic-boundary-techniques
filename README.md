@@ -16,7 +16,7 @@ pip install -r requirements.txt
 ### Step 1: Download the dataset
 Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put train.json, dev.json, tables.json, and database folder under ./data/ directory.
 ### Step 2: Configure the Config file
-
+There are two config files under ./configs/ directory - train.json and train_deepspeed.json. The value of "token_preprocessing" should be set to "true".
 ### Step 3: Run the program
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
@@ -28,7 +28,7 @@ deepspeed main.py configs/train_deepspeed.json
 ### Step 1: Download the dataset
 Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put train.json, dev.json, tables.json, and database folder under ./data/ directory.
 ### Step 2: Configure the Config file
-
+There are two config files under ./configs/ directory - train.json and train_deepspeed.json. The value of "token_preprocessing" should be set to "false" if you want to "T5-base+Comp" and "true" if you want to finetune "T5-base+Tok+Comp".
 ### Step 3: Run the program
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
