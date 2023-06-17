@@ -22,7 +22,7 @@ Now, clone the repository.
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
 cd ood-generalization-semantic-boundary-techniques
 ```
-Note: The code for fine-tuning the T5 models is built upon the codebase from [PICARD](https://github.com/ServiceNow/picard), while the code for converting NatSQL to SQL for evaluation is integrated using the codebase from [NatSQL](https://github.com/ygan/NatSQL). 
+Note: The code for fine-tuning the T5 models is built upon the codebase from [PICARD](https://github.com/ServiceNow/picard), while the code for converting NatSQL to SQL during model evaluation is integrated using the codebase from [NatSQL](https://github.com/ygan/NatSQL). 
 
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
