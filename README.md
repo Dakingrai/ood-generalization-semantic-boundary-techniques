@@ -21,7 +21,8 @@ Set the value of `"token_preprocessing"` to be `"true"` in config file. There ar
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
 cd ood-generalization-semantic-boundary-techniques
-deepspeed main.py configs/train_deepspeed.json 
+deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
+python main.py configs/train.json # for finetuning without deepspeed
 ```
 
 ## Component Boundary Marking (comp)
@@ -33,7 +34,7 @@ The value of `"token_preprocessing"` should be set to `"false"` for training `"T
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
 cd ood-generalization-semantic-boundary-techniques
-deepspeed main.py configs/train_deepspeed.json 
-```peed main.py configs/train_deepspeed.json
+deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
+python main.py configs/train.json # for finetuning without deepspeed
 ```
  
