@@ -6,9 +6,7 @@ In this paper, we introduce two semantic-boundary-based techniques to improve co
 
 ![github](https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques/assets/3531451/0fb9eff6-19a7-49c0-8f46-a48130545dfd)
 
-## Introduction
-The code for fine-tuning the T5 models is built upon the codebase from [PICARD](https://github.com/ServiceNow/picard). On the other hand, the code for converting NatSQL to SQL for evaluation is integrated using the codebase from [NatSQL](https://github.com/ygan/NatSQL). 
-## Setup
+## Environment Setup
 This project is tested in Python 3.8.6.
 
 To get started, set up the environment:
@@ -19,11 +17,12 @@ pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --e
 pip install -r requirements.txt
 ```
 
-Now, clone the repository.
+Now, clone the repository. 
 ```
 git clone https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques.git
 cd ood-generalization-semantic-boundary-techniques
 ```
+Note: The code for fine-tuning the T5 models is built upon the codebase from [PICARD](https://github.com/ServiceNow/picard), while the code for converting NatSQL to SQL for evaluation is integrated using the codebase from [NatSQL](https://github.com/ygan/NatSQL). 
 
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
