@@ -7,7 +7,7 @@ In this paper, we introduce two semantic-boundary-based techniques to improve co
 ![github](https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques/assets/3531451/0fb9eff6-19a7-49c0-8f46-a48130545dfd)
 
 ## Setup
-This project is tested in python 3.8.6.
+This project is tested in Python 3.8.6.
 
 To get started, set up the environment:
 ```
@@ -25,9 +25,9 @@ cd ood-generalization-semantic-boundary-techniques
 
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
-Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put train.json, dev.json, tables.json, and database folder under ./data/ directory.
+Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and put `./data/vanilla/train.json` and `./data/vanilla/dev.json` from downloaded folder under `./data/` of the project directory.
 ### Step 2: Configure the Config file
-Set the value of `"token_preprocessing"` to be `"true"` in config file. There are two config files under `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
+Set the value of `"token_preprocessing"` to be `"true"` in the config file. There are two config files under the `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
 ```
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
