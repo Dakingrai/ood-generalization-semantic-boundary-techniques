@@ -3,6 +3,7 @@
     "run_id": 20,
     "model_name_or_path": "t5-base",
     "dataset": "spider",
+    "token_preprocessing": false,
     "source_prefix": "",
     "schema_serialization_type": "peteshaw",
     "schema_serialization_randomized": false,
