@@ -26,7 +26,7 @@ Note: The code for fine-tuning the T5 models is built upon the codebase from [PI
 
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
-Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and copy `train.json`, `dev.json` and all test sets from `./data/vanilla/` of the downloaded folder to `./data/` of the project directory.
+Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/vanilla/` of the downloaded folder to `./data/` of the project directory.
 ### Step 2: Configure the Config file
 Set the value of `"token_preprocessing"` to be `"true"` in the config file. There are two config files under the `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
@@ -44,7 +44,7 @@ python evaluation.py --gold data/dev_gold.sql --pred pred.sql --etype all
 ```
 ## Component Boundary Marking (comp)
 ### Step 1: Download the dataset
-Download the datasets: [Dataset](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Unpack the datasets somewhere outside this project and copy `train.json`, `dev.json` and all test sets from `./data/component_boundary_marking/` of the downloaded folder to `./data/` of the project directory.
+Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/component_boundary_marking/` of the downloaded folder to `./data/` of the project directory.
 ### Step 2: Configure the Config file
 The value of `"token_preprocessing"` should be set to `"false"` for training `"T5-base+Comp"` and `"true"` for training `"T5-base+Tok+Comp"`. There are two config files under `./configs/` directory - `train.json` and `train_deepspeed.json`. To train without deepspeed, modify the `"train.json"` file, and for training with deepspeed, modify the `"train_deepspeed.json"` file.
 ### Step 3: Run the program
