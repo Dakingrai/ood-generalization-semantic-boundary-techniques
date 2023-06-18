@@ -12,9 +12,9 @@ Follow all instructions on the [project homepage](https://github.com/Dakingrai/o
 2. Download the [Spider dataset](https://yale-lily.github.io/spider) and copy the `database` folder and `tables.json` to the `./data/` of the project directory.
 
 ### Step 3: Run the inference
-Run the inference code to get the prediction of the test set using the selected checkpoint. You can use your own finetuned checkpoint or also run evaluations on our [checkpoints](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz).
+Run the inference code using the script below to get the prediction of the test set using the selected checkpoint. You can use your own finetuned checkpoint or also run evaluations on our [checkpoints](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz). Note: Please use --token_preprocessing only if your model is trained with our token preprocessing input.
 ```
-python evaluation/inference.py --checkpoint checkpoint_path --data test_data_path --database database_path --tokenized 
+python evaluation/inference.py --checkpoint checkpoint_path --data test_data_path --database database_path --token_preprocessing 
 ```
 
 ### Step 4: Run the evaluation
