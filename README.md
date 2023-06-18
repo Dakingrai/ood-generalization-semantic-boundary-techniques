@@ -13,7 +13,8 @@ If you find our work helpful, please cite as
 
 
 ## Overview
-This paper introduces two semantic-boundary-based techniques, Token preprocessing (Tok) and Component boundary marking (Comp), to improve compositional and domain generalization in language model-based semantic parsers. Token preprocessing consists of preprocessing steps that address the tokenization issues that arise due to SQL naming conventions (Snakecase and Camelcase), dot notations, and SQL keywords. On the other hand, Component boundary marking proposes to align the input and output components by augmenting them with special token pairs as shown in Table 1. Please refer to our [paper](https://arxiv.org/abs/2305.17378) for more details.
+This paper introduces two semantic-boundary-based techniques, Token preprocessing (Tok) and Component boundary marking (Comp), to improve compositional and domain generalization in language model-based semantic parsers.
+At the token level, Token Preprocessing consists of preprocessing steps to handle naming conventions in database schemas and SQL queries such that a pre-trained LM tokenizer can split them into semantically meaningful tokens. At the sequence level, Component boundary marking (Comp) introduces special tokens to mark the semantic boundaries (e.g., phrases) aligned between the source NL and the target SQL as shown in Table 1. These special tokens implicitly help the LM-based parser build more precise input-output correspondences that are crucial for compositional generalization. Please refer to our [paper](https://arxiv.org/abs/2305.17378) for more details.
 
 ![github](https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques/assets/3531451/0fb9eff6-19a7-49c0-8f46-a48130545dfd)
 
