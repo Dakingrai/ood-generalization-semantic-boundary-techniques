@@ -95,7 +95,7 @@ def convert_to_sql(pred, data_path):
 				created_sqls.append("None")
 		return created_sqls
 
-def get_input(test):
+def get_input(test, token_preprocessing):
     input, output = [], []
     for i in range(len(test)):
         db_id = test[i]["db_id"]
@@ -114,9 +114,11 @@ def get_input(test):
                             for column_id, other_column_id in schema["foreign_keys"]
                         ]
         schema = serialize_schema(question = test[i]["question"], db_path=test[i]['db_path'], db_id = test[i]["db_id"], db_column_names = test[i]["db_column_names"][0], db_table_names = test[i]["db_table_names"], schema_serialization_type='peteshaw', schema_serialization_randomized=False, schema_serialization_with_db_id=True, schema_serialization_with_db_content=True, normalize_query=True)
-        input.append(test[i]['question'].strip() + " " + token_preprocessor.preprocess(schema).strip())
-        output.append(token_preprocessor.preprocess(schema))
-    return input, output
+        if token_preprocessing:
+            input.append(test[i]['question'].strip() + " " + token_preprocessor.preprocess(schema).strip())
+        else:
+            input.append(test[i]['question'].strip() + " " + schema.strip())
+    return input
 	
 
 if __name__ == "__main__":
@@ -124,31 +126,26 @@ if __name__ == "__main__":
     parser.add_argument("--model", help="model name")
     parser.add_argument("--data", help="data path")
     parser.add_argument("--database", help="database path")
+    parser.add_argument("--token_preprocessing", default=False, action="store_true")
     args = parser.parse_args()
     db_path = args.database
     test = load_data(args.data)
     processed_test = []
-    input, output = get_input(test)
+    input = get_input(test, args.token_preprocessing)
     device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model).to(device)
     model.eval()
-    # batchsize = 2
     test_pred = []
-    # for i in tqdm.tqdm(range(len(test)//batchsize+1 if len(test)%batchsize > 0 else 0)):
-    #     t_input = tokenizer(input[i*batchsize:(i+1)*batchsize], return_tensors="pt", padding=True, truncation=True)
     for i in tqdm.tqdm(range(len(test))):
-        torch.cuda.mem_get_info()
         t_input = tokenizer(input[i], return_tensors="pt", padding=True, truncation=True)
         outputs = model.generate(input_ids = t_input.input_ids.to(device),
                                 attention_mask = t_input.attention_mask.to(device),
                                 early_stopping=True)
         pred = tokenizer.batch_decode(outputs, skip_special_tokens=True)
         test_pred += pred
-        torch.cuda.mem_get_info()
     preds = copy.deepcopy(token_preprocessor.postprocess_all(test_pred))
     preds = insert_from_natsql(preds)
-    save_file(preds, "raw_pred.sql")
     sqls = convert_to_sql(preds, args.data)
     save_file(sqls, "pred.sql")
     
