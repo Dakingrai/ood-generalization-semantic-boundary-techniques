@@ -18,12 +18,15 @@ from token_preprocessing import TokenPreprocessor
 replace_tokens = [(' avg (', ' average ('), (' asc ', ' ascending '), (' desc ', ' descending ')]
 token_preprocessor = TokenPreprocessor(snake_case=True, camel_case=True, normalize_text=True, replace_tokens=replace_tokens, insert_space_when=['.'])
 
-def spider_get_input(question: str, serialized_schema: str, prefix: str)->str:
-	return prefix + question.strip() + " " + token_preprocessor.preprocess(serialized_schema).strip()
+def spider_get_input(question: str, serialized_schema: str, prefix: str, tokenize=False)->str:
+	if tokenize:
+		return prefix + question.strip() + " " + token_preprocessor.preprocess(serialized_schema).strip()
+	return prefix + question.strip() + " " + serialized_schema.strip()
 
-def spider_get_target(query: str, db_id: str, normalize_query = True, target_with_db_id=False) -> str:
-	query = copy.deepcopy(token_preprocessor.preprocess(normalize(query)).strip())
-	return query
+def spider_get_target(query: str, db_id: str, normalize_query = True, target_with_db_id=False, tokenize=False) -> str:
+	if tokenize:
+		return copy.deepcopy(token_preprocessor.preprocess(normalize(query)).strip())
+	return normalize(query).strip()
 
 def spider_add_serialized_schema(ex: dict, data_training_args: DataTrainingArguments)->dict:
 	serialized_schema = serialize_schema(question = ex["question"], db_path=ex["db_path"], db_id = ex["db_id"], db_column_names = ex["db_column_names"], db_table_names = ex["db_table_names"], schema_serialization_type=data_training_args.schema_serialization_type, schema_serialization_randomized=data_training_args.schema_serialization_randomized, schema_serialization_with_db_id=data_training_args.schema_serialization_with_db_id, schema_serialization_with_db_content=data_training_args.schema_serialization_with_db_id, normalize_query=data_training_args.normalize_query)
@@ -32,10 +35,10 @@ def spider_add_serialized_schema(ex: dict, data_training_args: DataTrainingArgum
 def spider_pre_process_function(batch: dict, max_source_length: Optional[int], max_target_length: Optional[int], data_training_args: DataTrainingArguments, tokenizer: PreTrainedTokenizerBase)->dict:
 	prefix = data_training_args.source_prefix if data_training_args.source_prefix is not None else ""
 	inputs = [
-	spider_get_input(question, serialized_schema, prefix) for question, serialized_schema in zip(batch["question"], batch["serialized_schema"])
+	spider_get_input(question, serialized_schema, prefix, data_training_args.token_preprocessing) for question, serialized_schema in zip(batch["question"], batch["serialized_schema"])
 	]
 	model_inputs: dict = tokenizer(inputs, max_length=max_source_length, padding = False, truncation = True, return_overflowing_tokens = False)
-	targets = [spider_get_target(query, db_id, data_training_args.normalize_query, data_training_args.target_with_db_id) for db_id, query in zip(batch["db_id"], batch["query"])]
+	targets = [spider_get_target(query, db_id, data_training_args.normalize_query, data_training_args.target_with_db_id, data_training_args.token_preprocessing) for db_id, query in zip(batch["db_id"], batch["query"])]
 	with tokenizer.as_target_tokenizer():
 		labels = tokenizer(targets, max_length=max_target_length, padding=False, truncation=True, return_overflowing_tokens = False)
 	model_inputs["labels"] = labels["input_ids"]
