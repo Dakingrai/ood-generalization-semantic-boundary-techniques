@@ -101,17 +101,17 @@ class Spider(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_filepaths": [
-                       "./data/natsql/train.json",
+                       "./data/train.json",
                     ]
                     if self.include_train_others
-                    else ["./data/natsql/train.json",],
+                    else ["./data/train.json",],
                     "db_path": downloaded_filepath + "/spider/database",
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
                 gen_kwargs={
-                    "data_filepaths": ["./data/natsql/dev.json",],
+                    "data_filepaths": ["./data/dev.json",],
                     "db_path": downloaded_filepath + "/spider/database",
                 },
             ),

@@ -90,12 +90,12 @@ class SpiderTrainer(Seq2SeqTrainer):
 		# args = self.construct_hyper_param()
 		natsql2sql_args = Args()
 		natsql2sql_args.not_infer_group = True #verified
-		tables = json.load(open("data/natsql/tables_for_natsql.json"))
+		tables = json.load(open("data/tables_for_natsql.json"))
 		table_dict = {}
 		for t in tables:
 			table_dict[t["db_id"]] = t
 		
-		sqls = json.load(open("data/natsql/dev.json"))
+		sqls = json.load(open("data/dev.json"))
 
 		#todo: replace natsql in sqls
 
