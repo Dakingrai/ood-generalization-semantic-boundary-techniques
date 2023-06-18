@@ -1,6 +1,17 @@
 # Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques
 This repository contains the code for ACL 2023 paper: [Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques](https://arxiv.org/abs/2305.17378).
 
+If you find our work helpful, please cite as
+```
+@article{rai2023improving,
+  title={Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques},
+  author={Rai, Daking and Wang, Bailin and Zhou, Yilun and Yao, Ziyu},
+  journal={arXiv preprint arXiv:2305.17378},
+  year={2023}
+}
+```
+
+
 ## Overview
 This paper introduces two semantic-boundary-based techniques, Token preprocessing (Tok) and Component boundary marking (Comp), to improve compositional and domain generalization in language model-based semantic parsers. Token preprocessing consists of preprocessing steps that address the tokenization issues that arise due to SQL naming conventions (Snakecase and Camelcase), dot notations, and SQL keywords. On the other hand, Component boundary marking proposes to align the input and output components by augmenting them with special token pairs as shown in Table 1. Please refer to our [paper](https://arxiv.org/abs/2305.17378) for more details.
 
