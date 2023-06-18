@@ -20,5 +20,5 @@ python evaluation/inference.py --checkpoint checkpoint_path --data test_data_pat
 ### Step 4: Run the evaluation
 Evaluate the predicted SQL to get the exact match accuracy (EX) and execution accuracy (EX). This code is adapted from [Spider](https://github.com/taoyds/spider) official evaluation script.
 ```
-python evaluation/evaluation.py --gold data/dev_gold.sql --pred pred.sql --etype all --db database_path --table data/tables.json
+python evaluation/evaluation.py --gold gold_test_file_path --pred pred.sql --etype all --db database_path --table data/tables.json
 ```
