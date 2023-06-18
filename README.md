@@ -37,7 +37,7 @@ Note: The code for fine-tuning the T5 models is built upon the codebase from [PI
 
 ## Token Preprocessing (Tok)
 ### Step 1: Download the dataset
-Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/vanilla/` of the downloaded folder to `./data/` of the project directory.
+Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/original/` of the downloaded folder to `./data/` of the project directory.
 ### Step 2: Configure the Config file
 Set the value of `"token_preprocessing"` to be `"true"` in the config file in the config file. Conversely, if the value is set to `"false"`, T5 will be trained without token preprocessing. Configs file can be found under `"./configs/"`. To train without deepspeed, edit the `"./configs/train.json"` file, and for training with deepspeed, edit the `"./configs/train_deepspeed.json"` file.
 ### Step 3: Run the program
