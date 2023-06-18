@@ -35,24 +35,26 @@ cd ood-generalization-semantic-boundary-techniques
 ```
 Note: The code for fine-tuning the T5 models is built upon the codebase from [PICARD](https://github.com/ServiceNow/picard), while the code for converting NatSQL to SQL during model evaluation is integrated using the codebase from [NatSQL](https://github.com/ygan/NatSQL). 
 
-## Token Preprocessing (Tok)
+## Finetuning T5 with Token Preprocessing (Tok)
 ### Step 1: Download the dataset
 Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/original/` of the downloaded folder to `./data/` of the project directory.
 ### Step 2: Configure the Config file
 Set the value of `"token_preprocessing"` to be `"true"` in the config file in the config file. Conversely, if the value is set to `"false"`, T5 will be trained without token preprocessing. Configs file can be found under `"./configs/"`. To train without deepspeed, edit the `"./configs/train.json"` file, and for training with deepspeed, edit the `"./configs/train_deepspeed.json"` file.
-### Step 3: Run the program
+### Step 3: Finetune the T5 models
+Start finetuning the T5 models using the script below:
 ```
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
 python main.py configs/train.json # for finetuning without deepspeed
 ```
 ### Step 4: Evaluate the test sets
 Please refer to ["Evaluation README"](https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques/tree/main/evaluations).
-## Component Boundary Marking (comp)
+## Finetuning T5 with Component Boundary Marking (comp)
 ### Step 1: Download the dataset
 Download the [datasets](https://gmuedu-my.sharepoint.com/:f:/g/personal/drai2_gmu_edu/EpGaXUlbZ2JEj47w1vNN4z4BKjgvseGeGMirT125Xw85gg?e=Mw9tFz) and unpack them somewhere outside this project. Copy `train.json`, `dev.json`, and all test sets from `./data/component_boundary_marking/` of the downloaded folder to `./data/` of the project directory.
 ### Step 2: Configure the Config file
 To train `"T5-base+Comp"`, set the value of `"token_preprocessing"` to be `"false"`. And, to train `"T5-base+Tok+Comp"`, set the value of `"token_preprocessing"` to be `"true"` in the config file. Configs file can be found under `"./configs/"`. To train without deepspeed, edit  the `"./configs/train.json"` file, and for training with deepspeed, edit the `"./configs/train_deepspeed.json"` file.
 ### Step 3: Run the program
+Start finetuning the T5 models using the script below:
 ```
 deepspeed main.py configs/train_deepspeed.json # for finetuning with deepspeed
 python main.py configs/train.json # for finetuning without deepspeed
