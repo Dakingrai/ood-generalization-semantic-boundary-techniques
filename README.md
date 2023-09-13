@@ -3,11 +3,21 @@ This repository contains the code for ACL 2023 paper: [Improving Generalization 
 
 If you find our work helpful, please cite as
 ```
-@article{rai2023improving,
-  title={Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques},
-  author={Rai, Daking and Wang, Bailin and Zhou, Yilun and Yao, Ziyu},
-  journal={arXiv preprint arXiv:2305.17378},
-  year={2023}
+@inproceedings{rai-etal-2023-improving,
+    title = "Improving Generalization in Language Model-based Text-to-{SQL} Semantic Parsing: Two Simple Semantic Boundary-based Techniques",
+    author = "Rai, Daking  and
+      Wang, Bailin  and
+      Zhou, Yilun  and
+      Yao, Ziyu",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-short.15",
+    doi = "10.18653/v1/2023.acl-short.15",
+    pages = "150--160",
+    abstract = "Compositional and domain generalization present significant challenges in semantic parsing, even for state-of-the-art semantic parsers based on pre-trained language models (LMs). In this study, we empirically investigate improving an LM{'}s generalization in semantic parsing with two simple techniques: at the token level, we introduce a token preprocessing method to preserve the semantic boundaries of tokens produced by LM tokenizers; at the sequence level, we propose to use special tokens to mark the boundaries of components aligned between input and output. Our experimental results on two text-to-SQL semantic parsing datasets show that our token preprocessing, although simple, can substantially improve the LM performance on both types of generalization, and our component boundary marking method is particularly helpful for compositional generalization.",
 }
 ```
 
